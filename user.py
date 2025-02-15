@@ -12,7 +12,6 @@ def firstname(first_name):
     Returns:
     None: Prints whether the name is valid or invalid.
     """
-
     try:
         if not isinstance(first_name, str):
             raise TypeError("Input must be a string.")
@@ -41,12 +40,11 @@ def lastname(last_name):
     Returns:
     None: Prints whether the name is valid or invalid.
     """
-
     try:
         if not isinstance(last_name, str):
             raise TypeError("Input must be a string.")
 
-        last_name = last_name.strip()  # Remove leading or trailing spaces
+        last_name = last_name.strip()
 
         if len(last_name) < 3:
             raise ValueError("Invalid last name. The name must have at least 3 characters.")
@@ -75,14 +73,13 @@ def check_email(email):
     Returns:
     bool: True if the email is valid, False otherwise.
     """
-
     try:
         if not isinstance(email, str):
             raise TypeError("Input must be a string.")
 
-        email = email.strip()  # Remove leading/trailing spaces
+        email = email.strip()
 
-        if not email:  # Check for empty input
+        if not email:
             raise ValueError("Email cannot be empty.")
 
         regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -104,23 +101,62 @@ def check_email(email):
         print(f"An unexpected error occurred: {e}")
         return False
 
-def main():
+def valid_mobileno(number):
     """
-    Main function to get user input for first name, last name, and email validation.
+    Validates an Indian mobile number based on the following conditions:
+    - It must start with '91' (India's country code), followed by a space.
+    - It must be exactly 10 digits after the space.
+
+    Parameters:
+    number (str): The mobile number entered by the user.
+
+    Returns:
+    bool: True if the mobile number is valid, False otherwise.
     """
     try:
-        first_name = input("Enter your First name: ").strip()  
-        if not first_name:  
+        if not isinstance(number, str):
+            raise TypeError("Input must be a string.")
+
+        pattern = r"^91\s\d{10}$"
+        return bool(re.match(pattern, number))
+
+    except TypeError as e:
+        print(f"Error: {e}")
+        return False
+
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return False
+
+def main():
+    """
+    Main function to get user input for first name, last name, email, and mobile number validation.
+    """
+    try:
+        first_name = input("Enter your First name: ").strip()
+        if not first_name:
             raise ValueError("First name cannot be empty.")
         firstname(first_name)
 
         last_name = input("Enter your Last name: ").strip()
-        if not last_name:  
+        if not last_name:
             raise ValueError("Last name cannot be empty.")
         lastname(last_name)
 
         email = input("Enter an email address: ").strip()
         check_email(email)
+
+        mob_numb = input("Enter your mobile number (Format: 91 XXXXXXXXXX): ").strip()
+        if not mob_numb:
+            raise ValueError("Mobile number cannot be empty.")
+
+        while not valid_mobileno(mob_numb):
+            print("Invalid mobile number. Please enter again.")
+            mob_numb = input("Enter your mobile number (Format: 91 XXXXXXXXXX): ").strip()
+            if not mob_numb:
+                raise ValueError("Mobile number cannot be empty.")
+
+        print("Your mobile number is valid:", mob_numb)
 
     except ValueError as e:
         print(f"Error: {e}")

@@ -39,7 +39,6 @@ except ValueError as e:
     print(f"Error: {e}")
 
 
-import re
 
 def lastname(last_name):
     """
@@ -86,3 +85,50 @@ try:
     lastname(last_name)
 except ValueError as e:
     print(f"Error: {e}")
+
+def check_email(email):
+    """
+    Validates an email address based on the standard email format.
+
+    Parameters:
+    email (str): The email address entered by the user.
+
+    Returns:
+    bool: True if the email is valid, False otherwise.
+    """
+
+    try:
+        if not isinstance(email, str):
+            raise TypeError("Input must be a string.")
+
+        email = email.strip()  # Remove leading/trailing spaces
+
+        if not email:  # Check for empty input
+            raise ValueError("Email cannot be empty.")
+
+        regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if re.match(regex, email):
+            print(f"{email} is a Valid Email Address.")
+            return True
+        else:
+            raise ValueError(f"{email} is an Invalid Email Address.")
+
+    except ValueError as e:
+        print(f"Error: {e}")
+        return False
+
+    except TypeError as e:
+        print(f"Error: {e}")
+        return False
+
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return False
+
+# Get user input with exception handling
+try:
+    email = input("Enter an email address: ").strip()
+    check_email(email)
+except Exception as e:
+    print(f"Error: {e}")
+    

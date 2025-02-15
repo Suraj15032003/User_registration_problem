@@ -2,11 +2,38 @@ import re
 
 
 def firstname(first_name):
-    name_len=len(first_name)
-    if re.match(r'^[A-Z][a-zA-Z]*$', first_name):
-        print("valid name")
-    else:
-        print("Invalid name")
+    """
+    Validates the given first name based on the following conditions:
+    - The name must start with an uppercase letter.
+    - The name can contain only alphabetic characters (both uppercase and lowercase).
 
-first_name = str(input("Enter your First name "))
-firstname(first_name)
+    Parameters:
+    first_name (str): The first name entered by the user.
+
+    Returns:
+    None: Prints whether the name is valid or invalid.
+    """
+
+    try:
+        if not isinstance(first_name, str):
+            raise TypeError("Input must be a string.")
+
+        if re.match(r'^[A-Z][a-zA-Z]*$', first_name):
+            print("Valid name")
+        else:
+            print("Invalid name. The first letter must be uppercase, and the name should contain only alphabets.")
+    
+    except TypeError as e:
+        print(f"Error: {e}")
+
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+# Get user input with exception handling
+try:
+    first_name = input("Enter your First name: ").strip()  # Stripping to remove unwanted spaces
+    if not first_name:  # Check for empty input
+        raise ValueError("Name cannot be empty.")
+    firstname(first_name)
+except ValueError as e:
+    print(f"Error: {e}")

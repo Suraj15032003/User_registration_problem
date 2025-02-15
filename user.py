@@ -184,13 +184,13 @@ def main():
         email = input("Enter an email address: ").strip()
         check_email(email)
 
-        mob_numb = input("Enter your mobile number (Format: 91 XXXXXXXXXX): ").strip()
+        mob_numb = input("Enter your mobile number (Format: 91 1234567890): ").strip()
         if not mob_numb:
             raise ValueError("Mobile number cannot be empty.")
 
         while not valid_mobileno(mob_numb):
             print("Invalid mobile number. Please enter again.")
-            mob_numb = input("Enter your mobile number (Format: 91 XXXXXXXXXX): ").strip()
+            mob_numb = input("Enter your mobile number (Format: 91 1234567890): ").strip()
             if not mob_numb:
                 raise ValueError("Mobile number cannot be empty.")
 

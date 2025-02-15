@@ -1,6 +1,5 @@
 import re
 
-
 def firstname(first_name):
     """
     Validates the given first name based on the following conditions:
@@ -29,11 +28,18 @@ def firstname(first_name):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-# Get user input with exception handling
-try:
-    first_name = input("Enter your First name: ").strip()  # Stripping to remove unwanted spaces
-    if not first_name:  # Check for empty input
-        raise ValueError("Name cannot be empty.")
-    firstname(first_name)
-except ValueError as e:
-    print(f"Error: {e}")
+def main():
+    """
+    Main function to get user input and validate the first name.
+    """
+    try:
+        first_name = input("Enter your First name: ").strip()  # Stripping to remove unwanted spaces
+        if not first_name:  # Check for empty input
+            raise ValueError("Name cannot be empty.")
+        firstname(first_name)
+    except ValueError as e:
+        print(f"Error: {e}")
+
+# Ensuring the script runs only when executed directly
+if __name__ == "__main__":
+    main()

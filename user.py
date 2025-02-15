@@ -128,9 +128,47 @@ def valid_mobileno(number):
         print(f"An unexpected error occurred: {e}")
         return False
 
+def valid_password(password):
+    """
+    Validates a password based on the following predefined rules:
+    - Minimum 8 characters.
+    - At least one uppercase letter.
+    - At least one lowercase letter.
+    - At least one digit.
+    - At least one special character (!@#$%^&*).
+
+    Parameters:
+    password (str): The password entered by the user.
+
+    Returns:
+    bool: True if the password is valid, False otherwise.
+    """
+    try:
+        if not isinstance(password, str):
+            raise TypeError("Input must be a string.")
+
+        pattern = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$'
+        if re.match(pattern, password):
+            print("Valid password")
+            return True
+        else:
+            raise ValueError("Invalid password. Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.")
+
+    except ValueError as e:
+        print(f"Error: {e}")
+        return False
+
+    except TypeError as e:
+        print(f"Error: {e}")
+        return False
+
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return False
+
 def main():
     """
-    Main function to get user input for first name, last name, email, and mobile number validation.
+    Main function to get user input for first name, last name, email, mobile number, and password validation.
     """
     try:
         first_name = input("Enter your First name: ").strip()
@@ -146,17 +184,24 @@ def main():
         email = input("Enter an email address: ").strip()
         check_email(email)
 
-        mob_numb = input("Enter your mobile number (Format: 91 1234567890): ").strip()
+        mob_numb = input("Enter your mobile number (Format: 91 XXXXXXXXXX): ").strip()
         if not mob_numb:
             raise ValueError("Mobile number cannot be empty.")
 
         while not valid_mobileno(mob_numb):
             print("Invalid mobile number. Please enter again.")
-            mob_numb = input("Enter your mobile number (Format: 91 1234567890): ").strip()
+            mob_numb = input("Enter your mobile number (Format: 91 XXXXXXXXXX): ").strip()
             if not mob_numb:
                 raise ValueError("Mobile number cannot be empty.")
 
         print("Your mobile number is valid:", mob_numb)
+
+        password = input("Enter your password: ").strip()
+        while not valid_password(password):
+            print("Invalid password. Please try again.")
+            password = input("Enter your password: ").strip()
+
+        print("Password successfully set!")
 
     except ValueError as e:
         print(f"Error: {e}")

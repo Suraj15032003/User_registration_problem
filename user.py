@@ -39,7 +39,6 @@ except ValueError as e:
     print(f"Error: {e}")
 
 
-
 def lastname(last_name):
     """
     Validates the given last name based on the following conditions:

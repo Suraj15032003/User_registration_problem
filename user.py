@@ -132,6 +132,7 @@ def valid_password(password):
     """
     Validates a password based on the following predefined rules:
     - Minimum 8 characters.
+    -Atleat having 1 upper case letter 
     Parameters:
     password (str): The password entered by the user.
 

@@ -132,11 +132,7 @@ def valid_password(password):
     """
     Validates a password based on the following predefined rules:
     - Minimum 8 characters.
-    - At least one uppercase letter.
-    - At least one lowercase letter.
-    - At least one digit.
-    - At least one special character (!@#$%^&*).
-
+    -Atleat having 1 upper case letter 
     Parameters:
     password (str): The password entered by the user.
 
@@ -148,6 +144,7 @@ def valid_password(password):
             raise TypeError("Input must be a string.")
 
         pattern = r'^.{8}$'
+        pattern = r'^(?=.*[A-Z]).{8,}$'
         if re.match(pattern, password):
             print("Valid password")
             return True
